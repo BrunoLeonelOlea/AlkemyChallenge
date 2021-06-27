@@ -87,5 +87,16 @@ public class PersonajeServicio {
 			throw new Exception(e.getMessage());
 		}
 	}
+	
+
+	public Personaje buscarPersonajePorEdad(int edad) throws Exception {
+		try {
+			Optional<Personaje> personajeOpcional = personajeRepositorio.findByEdad(edad);
+			return personajeOpcional.get();
+			
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
 
 }

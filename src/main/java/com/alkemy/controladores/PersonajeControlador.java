@@ -36,7 +36,7 @@ public class PersonajeControlador {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> obtenerPersonaje(@PathVariable long id) {
+	public ResponseEntity<?> obtenerPersonajePorId(@PathVariable long id) {
 		
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(personajeServicio.obtenerPersonajePorId(id));
@@ -74,10 +74,21 @@ public class PersonajeControlador {
 	}
 	
 	@GetMapping("{nombre}")
-	public ResponseEntity<?> obtenerPersonajePorNombre(@RequestParam String nombre) {
+	public ResponseEntity<?> obtenerPersonajePorNombre(@RequestParam(value="nombre") String nombre) {
 		
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(personajeServicio.buscarPersonajePorNombre(nombre));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente mas tarde.\"}");
+		}
+	}
+	
+
+	@GetMapping("{edad}")
+	public ResponseEntity<?> obtenerPersonajePorEdad(@RequestParam(value="edad") int edad) {
+		
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(personajeServicio.buscarPersonajePorEdad(edad));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"error\":\"Error. Por favor intente mas tarde.\"}");
 		}
