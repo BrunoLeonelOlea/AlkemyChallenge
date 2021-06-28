@@ -1,12 +1,20 @@
 package com.alkemy.entidades;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Personaje {
@@ -23,10 +31,15 @@ public class Personaje {
 	
 	private int peso;
 	
+	@Column(columnDefinition = "TEXT")
 	private String historia;
 	
-	@ManyToMany
-	private Set<Pelicula> peliculas;
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinTable(name = "personaje_peliculas",
+	joinColumns = @JoinColumn(name = "personaje_id"),
+	inverseJoinColumns = @JoinColumn(name = "pelicula_id"))
+	@JsonIgnore
+	private Set<Pelicula> peliculas = new HashSet<>();
 
 	public Personaje() {
 	}

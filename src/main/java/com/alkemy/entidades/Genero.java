@@ -3,10 +3,13 @@ package com.alkemy.entidades;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Genero {
@@ -19,7 +22,8 @@ public class Genero {
 
 	private String imagen;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "generos", fetch = FetchType.EAGER)
+	@JsonIgnore
 	private Set<Pelicula> peliculas;
 
 	public Genero() {
@@ -61,6 +65,10 @@ public class Genero {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	
+	public void addPeliculas(Pelicula pelicula) {
+		this.peliculas.add(pelicula);
 	}
 
 }
