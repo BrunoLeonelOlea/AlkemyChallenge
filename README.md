@@ -1,5 +1,5 @@
 # AlkemyChallenge
-An Api created with Spring Boot siguiendo el patron Rest
+una Api creada con el framework Sring Boot siguiendo el patron Rest
 
 
 Esos Serian los endpoints
